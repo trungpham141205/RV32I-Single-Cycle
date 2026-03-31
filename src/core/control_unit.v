@@ -1,7 +1,7 @@
 module control_unit(
-    input [6:0]opcode,
+    input wire [6:0] opcode,
     output reg RegWrite, ALUSrc, MemWrite, Branch, Jump,
-    output reg[1:0]ResultSrc, ALUOp
+    output reg[1:0] ResultSrc, ALUOp
 );
 
     always @(*) begin
@@ -20,7 +20,7 @@ module control_unit(
             7'b011_0011: {RegWrite, ALUSrc, MemWrite, ResultSrc, Branch, ALUOp, Jump} = 9'b100000100; // R type
             7'b001_0011: {RegWrite, ALUSrc, MemWrite, ResultSrc, Branch, ALUOp, Jump} = 9'b110000100; // I-type ALU
 
-            default: {RegWrite, ALUSrc, MemWrite, ResultSrc, Branch, ALUOp, Jump} = 9'b000000000;
+            default: {RegWrite, ALUSrc, MemWrite, ResultSrc, Branch, ALUOp, Jump} = 9'b0;
         endcase
     end
 

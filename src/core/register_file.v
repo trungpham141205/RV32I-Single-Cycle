@@ -1,8 +1,8 @@
 module register_file(
     input wire clk, rst, reg_write,
-    input wire [4:0]rs1, rs2, rd,
-    input wire [31:0]write_data,
-    output reg [31:0]read_data_1, read_data_2
+    input wire [4:0] rs1, rs2, rd,
+    input wire [31:0] write_data,
+    output reg [31:0] read_data_1, read_data_2
 );
 
     reg[31:0] registers[31:0];

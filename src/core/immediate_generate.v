@@ -1,7 +1,7 @@
 module immediate_generate(
-    input wire [6:0]opcode,
-    input wire [31:0]instruction,
-    output reg [31:0]immediate_extend
+    input wire [6:0] opcode,
+    input wire [31:0] instruction,
+    output reg [31:0] immediate_extend
 );
 
     always @(*) begin
