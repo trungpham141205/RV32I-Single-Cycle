@@ -17,7 +17,7 @@ module register_file(
                 registers[i] <= 32'b0;
             end
         end
-        else if(reg_write != 0) begin
+        else if(reg_write != 0 && rd != 5'b0) begin
             registers[rd] <= write_data; 
         end
     end
