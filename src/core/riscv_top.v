@@ -11,7 +11,7 @@ module riscv_top(
     //  Instruction
     wire [31:0] instruction;
     wire [6:0]  opcode;
-    wire [4:0]  rs1, rs2, rd;
+    wire [4:0]  rs1_add, rs2_add, rd_add;
     wire [2:0]  funct3;
     wire        funct7;
 
@@ -32,17 +32,17 @@ module riscv_top(
     wire        zero;
 
     //  Memory
-    wire        mem_read_data;
+    wire [31:0] mem_read_data;
 
     //  Write Back
-    wire        write_data;
+    wire [31:0] write_data;
 
     //──────────────────────────────────────────────────
     //─────────────── Instruction Fields ───────────────
     //──────────────────────────────────────────────────
     assign      opcode  = instruction[6:0];
     assign      rd_add  = instruction[11:7];
-    assign      funct3  = instruction[14:12]
+    assign      funct3  = instruction[14:12];
     assign      rs1_add = instruction[19:15];
     assign      rs2_add = instruction[24:20];
     assign      funct7  = instruction[30];
@@ -94,7 +94,7 @@ module riscv_top(
         .Jump               (Jump),
         .JumpReg            (JumpReg),
         .ResultSrc          (ResultSrc),
-        .ALUOp              (ALUOp),
+        .ALUOp              (ALUOp)
     );
 
     //───────────────────────────────────────────────────
@@ -127,15 +127,15 @@ module riscv_top(
     //─────────────────────────────────────────────────────────
     mux dut_mux_1(
         .sel                (AUIPC),
-        .A                  (pc),
-        .B                  (read_data_1),
+        .A                  (read_data_1),
+        .B                  (pc),
         .mux_out            (A)
     );
 
     mux dut_mux_2(
         .sel                (ALUSrc),
-        .A                  (immediate),
-        .B                  (read_data_2),
+        .A                  (read_data_2),
+        .B                  (immediate),
         .mux_out            (B)
     );
 
@@ -167,7 +167,7 @@ module riscv_top(
         .clk                (clk),
         .rst                (rst),
         .MemWrite           (MemWrite),
-        .address            (Result)
+        .address            (Result),
         .write_data         (read_data_2),
         .read_data          (mem_read_data)
     );
