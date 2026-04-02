@@ -18,6 +18,7 @@ module riscv_top(
     //  Control signals
     wire        RegWrite, ALUSrc, AUIPC, MemWrite;
     wire        Branch, Jump, JumpReg;
+    wire        branch_taken;
     wire [1:0]  ResultSrc, ALUOp;
 
     //  Register File
@@ -35,7 +36,7 @@ module riscv_top(
     wire [31:0] mem_read_data;
 
     //  Write Back
-    wire [31:0] write_data;
+    wire [31:0] write_data; 
 
     //──────────────────────────────────────────────────
     //─────────────── Instruction Fields ───────────────
@@ -50,6 +51,9 @@ module riscv_top(
     //────────────────────────────────────────
     //─────────────── PC logic ───────────────
     //────────────────────────────────────────
+    assign branch_taken = Branch & ((funct3 == 3'b000) ?  zero :         // BEQ: nhảy khi zero=1
+                                    (funct3 == 3'b001) ? ~zero : 1'b0);  // BNE: nhảy khi zero=0
+                               
     assign      pc_sel  = (Branch & zero) | Jump | JumpReg;
     assign      pc_next = pc_sel ? pc_branch_jump : pc_inc;
 

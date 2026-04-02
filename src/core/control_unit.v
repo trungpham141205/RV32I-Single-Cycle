@@ -9,7 +9,7 @@ module control_unit(
             7'b011_0111: {RegWrite, AUIPC, ALUSrc, MemWrite, ResultSrc, Branch, ALUOp, Jump, JumpReg} = 11'b10001100000; // LUI
             7'b001_0111: {RegWrite, AUIPC, ALUSrc, MemWrite, ResultSrc, Branch, ALUOp, Jump, JumpReg} = 11'b11100000000; // AUIPC
 
-            7'b110_1111: {RegWrite, AUIPC, ALUSrc, MemWrite, ResultSrc, Branch, ALUOp, Jump, JumpReg} = 11'b10x01000010; // JAL
+            7'b110_1111: {RegWrite, AUIPC, ALUSrc, MemWrite, ResultSrc, Branch, ALUOp, Jump, JumpReg} = 11'b10001000010; // JAL
             7'b110_0111: {RegWrite, AUIPC, ALUSrc, MemWrite, ResultSrc, Branch, ALUOp, Jump, JumpReg} = 11'b10101000001; // JALR
 
             7'b110_0011: {RegWrite, AUIPC, ALUSrc, MemWrite, ResultSrc, Branch, ALUOp, Jump, JumpReg} = 11'b00000010100; // Branch
