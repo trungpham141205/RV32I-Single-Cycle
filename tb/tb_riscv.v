@@ -1,4 +1,4 @@
-'`timescale 1ns/1ps
+`timescale 1ns/1ps
 module tb_riscv;
 
     reg clk, rst;
@@ -12,7 +12,7 @@ module tb_riscv;
     );
 
     integer pass_count;
-    integer fail_counter;
+    integer fail_count;
 
     task check_reg;
         input [4:0]  reg_num;
