@@ -54,7 +54,7 @@ module riscv_top(
     assign branch_taken = Branch & ((funct3 == 3'b000) ?  zero :         // BEQ: nhảy khi zero=1
                                     (funct3 == 3'b001) ? ~zero : 1'b0);  // BNE: nhảy khi zero=0
                                
-    assign      pc_sel  = (Branch & zero) | Jump | JumpReg;
+    assign      pc_sel  = branch_taken | Jump | JumpReg;
     assign      pc_next = pc_sel ? pc_branch_jump : pc_inc;
 
     program_counter dut_pc(
