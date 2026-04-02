@@ -163,5 +163,20 @@ module riscv_top(
     //─────────────────────────────────────────
     //───────────── Data Memory ───────────────
     //─────────────────────────────────────────
+    data_memory dut_data_memory(
+        .clk                (clk),
+        .rst                (rst),
+        .MemWrite           (MemWrite),
+        .address            (Result)
+        .write_data         (read_data_2),
+        .read_data          (mem_read_data)
+    );
+
+    //────────────────────────────────────────────────────
+    //───────────── Write Back (ResultSrc) ───────────────
+    //────────────────────────────────────────────────────
+    assign      write_data = (ResultSrc == 2'b00) ? Result : // R-type, I-type ALU, AUIPC
+                             (ResultSrc == 2'b01) ? mem_read_data : // LW
+                             (ResultSrc == 2'b10) ? pc_inc : immediate;           
 
 endmodule
