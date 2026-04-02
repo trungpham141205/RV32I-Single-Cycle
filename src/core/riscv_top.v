@@ -12,8 +12,8 @@ module riscv_top(
     wire [31:0] instruction;
     wire [6:0]  opcode;
     wire [4:0]  rs1, rs2, rd;
-    wire [2:0]  fucnt3;
-    wire        fucnt7;
+    wire [2:0]  funct3;
+    wire        funct7;
 
     //  Control signals
     wire        RegWrite, ALUSrc, AUIPC, MemWrite;
@@ -41,10 +41,10 @@ module riscv_top(
     //─────────────── Instruction Fields ───────────────
     //──────────────────────────────────────────────────
     assign      opcode  = instruction[6:0];
-    assign      rd      = instruction[11:7];
-    assign      fucnt3  = instruction[14:12]
-    assign      rs1     = instruction[19:15];
-    assign      rs2     = instruction[24:20];
+    assign      rd_add  = instruction[11:7];
+    assign      funct3  = instruction[14:12]
+    assign      rs1_add = instruction[19:15];
+    assign      rs2_add = instruction[24:20];
     assign      funct7  = instruction[30];
 
     //────────────────────────────────────────
@@ -54,37 +54,114 @@ module riscv_top(
     assign      pc_next = pc_sel ? pc_branch_jump : pc_inc;
 
     program_counter dut_pc(
-        .clk            (clk),
-        .rst            (rst),
-        .pc_next        (pc_next),
-        .pc             (pc)
+        .clk                (clk),
+        .rst                (rst),
+        .pc_next            (pc_next),
+        .pc                 (pc)
     );
 
     pc_increment dut_increment(
-        .pc             (pc),
-        .pc_inc         (pc_inc)
+        .pc                 (pc),
+        .pc_inc             (pc_inc)
     );
 
     branch_jump dut_branch_jump(
-        .pc             (pc),
-        .rs1            (read_data_1),
-        .immediate      (immediate),
-        .jump_reg       (JumpReg),
-        .pc_branch_jump (pc_branch_jump)
+        .pc                 (pc),
+        .rs1                (read_data_1),
+        .immediate          (immediate),
+        .jump_reg           (JumpReg),
+        .pc_branch_jump     (pc_branch_jump)
     );
 
     //──────────────────────────────────────────────────
     //─────────────── Instruction Memory ───────────────
     //──────────────────────────────────────────────────
     instruction_memory dut_instruction_memory(
-        .read_address   (pc),
-        .instruction    (instruction)
+        .read_address       (pc),
+        .instruction        (instruction)
     );
 
     //────────────────────────────────────────────
     //─────────────── Control Unit ───────────────
     //────────────────────────────────────────────
-    
+    control_unit dut_control_unit(
+        .opcode             (opcode),
+        .RegWrite           (RegWrite),
+        .ALUSrc             (ALUSrc),
+        .AUIPC              (AUIPC),
+        .MemWrite           (MemWrite),
+        .Branch             (Branch),
+        .Jump               (Jump),
+        .JumpReg            (JumpReg),
+        .ResultSrc          (ResultSrc),
+        .ALUOp              (ALUOp),
+    );
 
+    //───────────────────────────────────────────────────
+    //─────────────── Immediate Generator ───────────────
+    //───────────────────────────────────────────────────
+    immediate_generate dut_immediate_generate(
+        .opcode             (opcode),
+        .instruction        (instruction),
+        .immediate_extend   (immediate)
+    );
+
+    //─────────────────────────────────────────────
+    //─────────────── Register File ───────────────
+    //─────────────────────────────────────────────
+    register_file dut_register_file(
+        .clk                (clk),
+        .rst                (rst),
+        .reg_write          (RegWrite),
+        .rs1                (rs1_add),
+        .rs2                (rs2_add),
+        .rd                 (rd_add),
+        .write_data         (write_data),
+        .read_data_1        (read_data_1),
+        .read_data_2        (read_data_2)
+    );
+
+    //─────────────────────────────────────────────────────────
+    //──────────────── ALU input A mux (AUIPC) ────────────────
+    //──────────────── ALU input B mux (ALUSrc) ───────────────
+    //─────────────────────────────────────────────────────────
+    mux dut_mux_1(
+        .sel                (AUIPC),
+        .A                  (pc),
+        .B                  (read_data_1),
+        .mux_out            (A)
+    );
+
+    mux dut_mux_2(
+        .sel                (ALUSrc),
+        .A                  (immediate),
+        .B                  (read_data_2),
+        .mux_out            (B)
+    );
+
+    //─────────────────────────────────────────
+    //───────────── ALU Control ───────────────
+    //─────────────────────────────────────────
+    alu_control dut_alu_control(
+        .ALUOp              (ALUOp),
+        .funct7             (funct7),
+        .funct3             (funct3),
+        .ALUControl         (ALUControl)
+    );
+
+    //─────────────────────────────────
+    //───────────── ALU ───────────────
+    //─────────────────────────────────
+    alu dut_alu(
+        .A                  (A),
+        .B                  (B),
+        .ALUControl         (ALUControl),
+        .Result             (Result),
+        .zero               (zero)
+    );
+
+    //─────────────────────────────────────────
+    //───────────── Data Memory ───────────────
+    //─────────────────────────────────────────
 
 endmodule
