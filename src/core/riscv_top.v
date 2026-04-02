@@ -1,9 +1,9 @@
 module riscv_top(
     input wire clk, rst
 );
-    //────────────────────────────────────//
-    //─────────────── Wire ───────────────//
-    //────────────────────────────────────//
+    //────────────────────────────────────
+    //─────────────── Wire ───────────────
+    //────────────────────────────────────
     //  PC
     wire [31:0] pc, pc_next, pc_inc, pc_branch_jump;
     wire        pc_sel;
@@ -37,7 +37,9 @@ module riscv_top(
     //  Write Back
     wire        write_data;
 
-    //  Instruction Fields
+    //──────────────────────────────────────────────────
+    //─────────────── Instruction Fields ───────────────
+    //──────────────────────────────────────────────────
     assign      opcode  = instruction[6:0];
     assign      rd      = instruction[11:7];
     assign      fucnt3  = instruction[14:12]
@@ -45,22 +47,43 @@ module riscv_top(
     assign      rs2     = instruction[24:20];
     assign      funct7  = instruction[30];
 
-    //  PC logic
+    //────────────────────────────────────────
+    //─────────────── PC logic ───────────────
+    //────────────────────────────────────────
     assign      pc_sel  = (Branch & zero) | Jump | JumpReg;
     assign      pc_next = pc_sel ? pc_branch_jump : pc_inc;
 
     program_counter dut_pc(
-        .clk        (clk),
-        .rst        (rst),
-        .pc_next    (pc_next),
-        .pc         (pc)
+        .clk            (clk),
+        .rst            (rst),
+        .pc_next        (pc_next),
+        .pc             (pc)
     );
 
-    pc_increment    dut_inc(
-        .pc         (pc),
-        .pc_inc     (pc_inc)
+    pc_increment dut_increment(
+        .pc             (pc),
+        .pc_inc         (pc_inc)
     );
 
+    branch_jump dut_branch_jump(
+        .pc             (pc),
+        .rs1            (read_data_1),
+        .immediate      (immediate),
+        .jump_reg       (JumpReg),
+        .pc_branch_jump (pc_branch_jump)
+    );
+
+    //──────────────────────────────────────────────────
+    //─────────────── Instruction Memory ───────────────
+    //──────────────────────────────────────────────────
+    instruction_memory dut_instruction_memory(
+        .read_address   (pc),
+        .instruction    (instruction)
+    );
+
+    //────────────────────────────────────────────
+    //─────────────── Control Unit ───────────────
+    //────────────────────────────────────────────
     
 
 
