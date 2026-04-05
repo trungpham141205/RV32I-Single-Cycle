@@ -27,4 +27,4 @@ endmodule
 // beq, bne
 // slt
 // jal, jalr
-// auipc
+// auipc, lui
