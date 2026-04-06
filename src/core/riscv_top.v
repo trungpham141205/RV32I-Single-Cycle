@@ -115,7 +115,6 @@ module riscv_top(
     //─────────────────────────────────────────────
     register_file dut_register_file(
         .clk                (clk),
-        .rst                (rst),
         .reg_write          (RegWrite),
         .rs1                (rs1_add),
         .rs2                (rs2_add),
