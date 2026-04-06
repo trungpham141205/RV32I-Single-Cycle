@@ -20,6 +20,7 @@ module riscv_top(
     wire        Branch, Jump, JumpReg;
     wire        branch_taken;
     wire [1:0]  ResultSrc, ALUOp;
+    wire [2:0]  ImmSel
 
     //  Register File
     wire [31:0] read_data_1, read_data_2;
@@ -97,6 +98,7 @@ module riscv_top(
         .Branch             (Branch),
         .Jump               (Jump),
         .JumpReg            (JumpReg),
+        .ImmSel             (ImmSel),
         .ResultSrc          (ResultSrc),
         .ALUOp              (ALUOp)
     );
@@ -105,7 +107,7 @@ module riscv_top(
     //─────────────── Immediate Generator ───────────────
     //───────────────────────────────────────────────────
     immediate_generate dut_immediate_generate(
-        .opcode             (opcode),
+        .immsel             (ImmSel),
         .instruction        (instruction),
         .immediate_extend   (immediate)
     );
