@@ -21,4 +21,3 @@ module data_memory(
     end
 
 endmodule
-

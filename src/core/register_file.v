@@ -5,7 +5,7 @@ module register_file(
     output wire [31:0] read_data_1, read_data_2
 );
 
-    reg[31:0] registers[31:0];
+    reg [31:0] registers[31:0];
     integer i;
     
     assign read_data_1 = (rs1 != 0) ? registers[rs1] : 32'b0;
