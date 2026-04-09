@@ -4,6 +4,6 @@ module branch_jump(
     output wire [31:0] pc_branch_jump
 );
 
-    assign pc_branch_jump = (JumpReg ? rs1 : pc) + immediate;
+    assign pc_branch_jump = ((JumpReg ? rs1 : pc) + immediate) & 32'hFFFF_FFFE;
 
 endmodule

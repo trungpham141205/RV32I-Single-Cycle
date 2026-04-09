@@ -1,4 +1,4 @@
-    module control_unit(
+            module control_unit(
         input wire [6:0] opcode,
         input wire [2:0] funct3,
         output reg RegWrite, ALUSrc, AUIPC, MemWrite, Branch, Jump, JumpReg, 

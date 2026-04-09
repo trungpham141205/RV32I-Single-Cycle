@@ -6,7 +6,6 @@ module riscv_top(
     //────────────────────────────────────\\
     //  PC
     wire [31:0] pc, pc_next, pc_inc, pc_branch_jump;
-    wire        pc_sel;
 
     //  Instruction
     wire [31:0] instruction;
@@ -19,7 +18,7 @@ module riscv_top(
     wire        RegWrite, ALUSrc, AUIPC, MemWrite;
     wire        Branch, Jump, JumpReg;
     wire [1:0]  ResultSrc, ALUOp;
-    wire [2:0]  ImmSel
+    wire [2:0]  ImmSel;
 
     //  Register File
     wire [31:0] read_data_1, read_data_2;
@@ -67,13 +66,14 @@ module riscv_top(
         .JumpReg            (JumpReg),
         .zero               (zero),
         .alu_result         (result),
+        .funct3             (funct3),
         .pc_branch_jump     (pc_branch_jump),
         .pc_inc             (pc_inc),
         .pc_next            (pc_next)
     );
 
     branch_jump dut_branch_jump(
-        .Jump_Reg           (JumpReg),
+        .JumpReg           (JumpReg),
         .pc                 (pc),
         .rs1                (read_data_1),
         .immediate          (immediate),
@@ -173,7 +173,6 @@ module riscv_top(
     //─────────────────────────────────────────\\
     data_memory dut_data_memory(
         .clk                (clk),
-        .rst                (rst),
         .MemWrite           (MemWrite),
         .funct3             (funct3),
         .address            (result),

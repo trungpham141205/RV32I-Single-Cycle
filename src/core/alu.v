@@ -1,8 +1,8 @@
 module alu(
     input wire [31:0] A, B,
     input wire [3:0] ALUControl,
-    output wire zero
-    output reg [31:0] result,
+    output wire zero,
+    output reg [31:0] result
 );
 
     assign zero = (result == 32'b0);

@@ -4,7 +4,7 @@ module write_back(
     output wire [31:0] write_data
 );
 
-    assign write_data = (ResultSrc == 2'b00) ? result : // R-type, I-type ALU, AUIPC
+    assign write_data = (ResultSrc == 2'b00) ? alu_result : // R-type, I-type ALU, AUIPC
                         (ResultSrc == 2'b01) ? read_data : // Load
                         (ResultSrc == 2'b10) ? pc_inc : immediate;   
 

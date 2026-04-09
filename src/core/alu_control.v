@@ -44,7 +44,7 @@ module alu_control(
             6'b11110?: ALUControl = 4'b1000; // ORI
             6'b11111?: ALUControl = 4'b1001; // ANDI
 
-            default: ALUControl = 4'b0;
+            default: ALUControl = 4'b00;
         endcase
     end
 
