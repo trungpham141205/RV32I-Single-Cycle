@@ -8,7 +8,7 @@ module tb_program_counter();
     program_counter dut_tb_program_counter(
         .clk(clk),
         .rst(rst),
-        .pc(pc_next),
+        .pc_next(pc_next),
         .pc(pc)
     );
 
@@ -29,7 +29,7 @@ module tb_program_counter();
     // =========================
     // CLOCK
     // =========================
-    always #5 clk ~= clk;
+    always #5 clk = ~clk;
 
     // =========================
     // GOLDEN MODEL
@@ -39,15 +39,15 @@ module tb_program_counter();
     // =========================
     // CHECKER
     // =========================
-    task check
+    task check;
         begin
             total_tests = total_tests + 1;
-            if(pc === expected) begin
+            if(pc === expected_pc) begin
                 pass_count = pass_count + 1;
             end
             else begin
                 fail_count = fail_count + 1;
-                $display("❌ FAIL: pc = %h, expected = %h", pc, expected);
+                $display("X FAIL: pc = %h, expected = %h", pc, expected_pc);
             end
         end
     endtask
@@ -60,7 +60,7 @@ module tb_program_counter();
         input [31:0] tnext;
         begin
             rst = trst;
-            pc_next = t_next;
+            pc_next = tnext;
 
             #10;
 
@@ -84,7 +84,7 @@ module tb_program_counter();
     // =========================
     always @(posedge clk) begin
         if (rst && pc !== 0) begin
-            $display("❌ ASSERT FAIL: pc must be 0 when reset!");
+            $display("X ASSERT FAIL: pc must be 0 when reset!");
         end
     end
 
@@ -135,9 +135,9 @@ module tb_program_counter();
         $display("Seen transition : %0d", seen_transition);
 
         if (seen_reset && seen_normal && seen_transition)
-            $display("✅ COVERAGE PASSED");
+            $display("COVERAGE PASSED");
         else
-            $display("❌ COVERAGE FAILED");
+            $display("X COVERAGE FAILED");
 
         $finish;
     end

@@ -1,0 +1,75 @@
+m255
+K4
+z2
+!s12c _opt
+Z0 !s99 nomlopt
+!s11f vlog 2025.2 2025.05, May 31 2025
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z1 d/home/trungpham/RV32I-Single-Cycle/sim/program_counter
+T_opt
+!i145 1
+!i144 0
+Z2 !s110 1775744740
+V8^fJTAKa`3^:gZJiORz;W2
+04 18 4 work tb_program_counter fast 0
+=1-14ac606edb59-69d7b6e4-21682-3c44
+R0
+!s12f OEM100
+!s12b OEM100
+!s124 OEM10U2 
+!s135 nogc
+o-quiet -auto_acc_if_foreign -work work +acc
+Z3 tCvgOpt 0
+n@_opt
+OL;O;2025.2;82
+vprogram_counter
+2../../src/core/program_counter.v
+R2
+!i10b 1
+!s100 QKazACU6QTz0B0H]ed?oC0
+IgFZBX[9h03>5ejOhWRRV?1
+R1
+w1775740908
+8../../src/core/program_counter.v
+F../../src/core/program_counter.v
+!i122 1
+L0 1 16
+Z4 VDg1SIo80bB@j0V0VzS_@n1
+Z5 OL;L;2025.2;82
+r1
+!s85 0
+31
+Z6 !s108 1775744740.000000
+!s107 ../../src/core/program_counter.v|
+!s90 -reportprogress|300|../../src/core/program_counter.v|
+!i113 0
+Z7 o-L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R3
+vtb_program_counter
+2../../tb/program_counter/tb_program_counter.v
+R2
+!i10b 1
+!s100 [WK40]=B0n@^5RaR<:<a@2
+IB<J=oE4l;]TEDzb;VcOSC0
+R1
+w1775743708
+8../../tb/program_counter/tb_program_counter.v
+F../../tb/program_counter/tb_program_counter.v
+!i122 2
+L0 2 143
+R4
+R5
+r1
+!s85 0
+31
+R6
+!s107 ../../tb/program_counter/tb_program_counter.v|
+!s90 -reportprogress|300|../../tb/program_counter/tb_program_counter.v|
+!i113 0
+R7
+R3
