@@ -18,7 +18,7 @@ module riscv_top(
     //  Control signals
     wire        RegWrite, ALUSrc, AUIPC, MemWrite;
     wire        Branch, Jump, JumpReg;
-    wire        branch_taken;
+    wire        branch_sel;
     wire [1:0]  ResultSrc, ALUOp;
     wire [2:0]  ImmSel
 
@@ -49,15 +49,6 @@ module riscv_top(
     assign      rs2_add = instruction[24:20];
     assign      funct7  = instruction[30];
 
-    //────────────────────────────────────────\\
-    //─────────────── PC logic ───────────────\\
-    //────────────────────────────────────────\\
-    assign branch_taken = Branch & ((funct3 == 3'b000) ?  zero :         // BEQ: nhảy khi zero=1
-                                    (funct3 == 3'b001) ? ~zero : 1'b0);  // BNE: nhảy khi zero=0
-                               
-    assign      pc_sel  = branch_taken | Jump | JumpReg;
-    assign      pc_next = pc_sel ? pc_branch_jump : pc_inc;
-
     program_counter dut_pc(
         .clk                (clk),
         .rst                (rst),
@@ -68,6 +59,14 @@ module riscv_top(
     pc_increment dut_increment(
         .pc                 (pc),
         .pc_inc             (pc_inc)
+    );
+
+    branch_unit dut_branch_unit(
+        .funct3             (funct3),
+        .zero               (zero),
+        .alu_result         (Result),
+        .Branch             (Branch),
+        .branch_sel         (branch_sel)
     );
 
     branch_jump dut_branch_jump(
