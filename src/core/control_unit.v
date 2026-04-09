@@ -39,10 +39,10 @@
                 // Integer Register - Immediate Instructions
                 7'b001_0011: begin
                     if(funct3 == 3'b001 || funct3 == 3'b101) begin
-                        {ImmSel, RegWrite, AUIPC, ALUSrc, MemWrite, ResultSrc, Branch, ALUOp, Jump, JumpReg} = 14'b101_1_0_1_0_00_0_10_0_0;
+                        {ImmSel, RegWrite, AUIPC, ALUSrc, MemWrite, ResultSrc, Branch, ALUOp, Jump, JumpReg} = 14'b101_1_0_1_0_00_0_11_0_0;
                     end
                     else begin
-                        {ImmSel, RegWrite, AUIPC, ALUSrc, MemWrite, ResultSrc, Branch, ALUOp, Jump, JumpReg} = 14'b011_1_0_1_0_00_0_10_0_0;
+                        {ImmSel, RegWrite, AUIPC, ALUSrc, MemWrite, ResultSrc, Branch, ALUOp, Jump, JumpReg} = 14'b011_1_0_1_0_00_0_11_0_0;
                     end
                 end 
 

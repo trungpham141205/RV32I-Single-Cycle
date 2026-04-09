@@ -9,6 +9,10 @@ module alu_control(
         casez ({ALUOp, funct3, funct7})
             6'b00????: ALUControl = 4'b0000; // ADD (LW, SW, JALR, AUIPC)
             6'b01????: ALUControl = 4'b0001;  // SUB (Branch)
+
+            //──────────────────────────────────────\\
+            //─────────────── R Type ───────────────\\
+            //──────────────────────────────────────\\
             6'b100000: ALUControl = 4'b0000; // ADD, ADDI
             6'b100001: ALUControl = 4'b0001; // SUB
             6'b100010: ALUControl = 4'b0010; // SLL, SLLI
@@ -19,7 +23,20 @@ module alu_control(
             6'b101011: ALUControl = 4'b0111; // SRA, SRAI
             6'b101100: ALUControl = 4'b1000; // OR, ORI
             6'b101110: ALUControl = 4'b1001; // AND, ANDI
-            
+
+            //──────────────────────────────────────\\
+            //─────────────── I Type ───────────────\\
+            //──────────────────────────────────────\\
+            6'b110000: ALUControl = 4'b0000; // ADDI
+            6'b110010: ALUControl = 4'b0010; // SLLI
+            6'b110100: ALUControl = 4'b0011; // SLTI
+            6'b110110: ALUControl = 4'b0100; // SLTIU
+            6'b111000: ALUControl = 4'b0101; // XORI
+            6'b111010: ALUControl = 4'b0110; // SRLI
+            6'b111011: ALUControl = 4'b0111; // SRAI
+            6'b111100: ALUControl = 4'b1000; // ORI
+            6'b111110: ALUControl = 4'b1001; // ANDI
+
             default: ALUControl = 4'b0;
         endcase
     end
