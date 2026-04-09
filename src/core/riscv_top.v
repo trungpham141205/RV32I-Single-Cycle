@@ -18,7 +18,6 @@ module riscv_top(
     //  Control signals
     wire        RegWrite, ALUSrc, AUIPC, MemWrite;
     wire        Branch, Jump, JumpReg;
-    wire        branch_sel;
     wire [1:0]  ResultSrc, ALUOp;
     wire [2:0]  ImmSel
 

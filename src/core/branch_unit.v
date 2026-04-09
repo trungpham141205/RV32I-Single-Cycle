@@ -1,8 +1,8 @@
 module branch_unit(
     input wire Branch, Jump, JumpReg,
-    input wire [31:0] pc_branch_jump, pc_inc
+    input wire zero, alu_result,
     input wire [2:0] funct3,
-    input wire zero, alu_result
+    input wire [31:0] pc_branch_jump, pc_inc,
     output reg [31:0] pc_next;
 );
     wire pc_sel;

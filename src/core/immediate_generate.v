@@ -1,11 +1,11 @@
     module immediate_generate(
-    input wire [2:0] immsel,
+    input wire [2:0] ImmSel,
     input wire [31:0] instruction,
     output reg [31:0] immediate_extend
 );
 
     always @(*) begin
-        case (immsel)
+        case (ImmSel)
             //──────────────────────────────────────\\
             //─────────────── U Type ───────────────\\
             //──────────────────────────────────────\\
