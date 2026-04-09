@@ -50,7 +50,7 @@
             3'b101:
                 immediate_extend = {27'b0, instruction[24:20]}; 
 
-            default: immediate_extend = 32'b0;
+            default: immediate_extend = 32'hz;
         endcase
     end
 

@@ -7,8 +7,8 @@ module alu_control(
 
     always @(*) begin
         casez ({ALUOp, funct3, funct7})
-            6'b00????: ALUControl = 4'b0000; // LW, SW, JALR, AUIPC
-            6'b01????: ALUControl = 4'b0001; // Branch
+            6'b00????: ALUControl = 4'b0000; // ADD (LW, SW, JALR, AUIPC)
+            6'b01????: ALUControl = 4'b0001;  // SUB (Branch)
             6'b100000: ALUControl = 4'b0000; // ADD, ADDI
             6'b100001: ALUControl = 4'b0001; // SUB
             6'b100010: ALUControl = 4'b0010; // SLL, SLLI
