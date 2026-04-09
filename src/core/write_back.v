@@ -5,7 +5,7 @@ module write_back(
 );
 
     assign write_data = (ResultSrc == 2'b00) ? result : // R-type, I-type ALU, AUIPC
-                        (ResultSrc == 2'b01) ? read_data : // LW
+                        (ResultSrc == 2'b01) ? read_data : // Load
                         (ResultSrc == 2'b10) ? pc_inc : immediate;   
 
 endmodule

@@ -46,36 +46,45 @@ module data_memory(
     always @(*) begin
         read_data = 32'b0;
         case (funct3)
-            3'b000: // Load Byte (LB) Load 8-bit
+            3'b000: begin // Load Byte (LB) Load 8-bit
                 case (address[1:0])
                     2'b00: read_data = {{24{word[7]}}, word[7:0]}; // Byte 0
                     2'b01: read_data = {{24{word[15]}}, word[15:8]}; // Byte 1
                     2'b10: read_data = {{24{word[23]}}, word[23:16]}; // Byte 2
                     2'b11: read_data = {{24{word[31]}}, word[31:24]}; // Byte 3
                 endcase
+            end
+                
 
-            3'b001: // Load Half Word (LH) Load 16-bit
+            3'b001: begin // Load Half Word (LH) Load 16-bit
                 case (address[1])
                     1'b0: read_data = {{16{word[15]}}, word[15:0]};
                     1'b1: read_data = {{16{word[31]}}, word[31:16]};
                 endcase
+            end
+                
 
-            3'b010: // Load Word (LW) Load 32-bit
-                read_data = word; 
+            3'b010: begin // Load Word (LW) Load 32-bit
+                read_data = word;
+            end
+                 
             
-            3'b100: // Load Byte Unsigned (LB) Load 8-bit Unsigned
+            3'b100: begin // Load Byte Unsigned (LB) Load 8-bit Unsigned
                 case (address[1:0])
                     2'b00: read_data = {24'b0, word[7:0]}; // Byte 0
                     2'b01: read_data = {24'b0, word[15:8]}; // Byte 1
                     2'b10: read_data = {24'b0, word[23:16]}; // Byte 2
                     2'b11: read_data = {24'b0, word[31:24]}; // Byte 3
                 endcase
-            
-            3'b101: // Load Half Word Unsigned (LH) Load 16-bit Unsigned
+            end
+                
+            3'b101: begin // Load Half Word Unsigned (LH) Load 16-bit Unsigned
                 case (address[1])
                     1'b0: read_data = {16'b0, word[15:0]};
                     1'b1: read_data = {16'b0, word[31:16]};
                 endcase
+            end
+                
         endcase
     end
 
