@@ -1,4 +1,4 @@
-module immediate_generate(
+    module immediate_generate(
     input wire [2:0] immsel,
     input wire [31:0] instruction,
     output reg [31:0] immediate_extend
@@ -43,6 +43,12 @@ module immediate_generate(
             // Memory Store Instructions
             3'b100: 
                 immediate_extend = {{20{instruction[31]}}, instruction[31:25], instruction[11:7]}; 
+
+            //───────────────────────────────────────\\
+            //─────────────── Shift I ───────────────\\
+            //───────────────────────────────────────\\
+            3'b101:
+                immediate_extend = {27'b0, instruction[24:20]}; 
 
             default: immediate_extend = 32'b0;
         endcase

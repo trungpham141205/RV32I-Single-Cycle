@@ -38,7 +38,12 @@
                 7'b000_0011: {ImmSel, RegWrite, AUIPC, ALUSrc, MemWrite, ResultSrc, Branch, ALUOp, Jump, JumpReg} = 14'b011_1_0_1_0_01_0_00_0_0; 
                 // Integer Register - Immediate Instructions
                 7'b001_0011: begin
-                    if(funct3)
+                    if(funct3 == 3'b001 || funct3 == 3'b101) begin
+                        {ImmSel, RegWrite, AUIPC, ALUSrc, MemWrite, ResultSrc, Branch, ALUOp, Jump, JumpReg} = 14'b101_1_0_1_0_00_0_10_0_0;
+                    end
+                    else begin
+                        {ImmSel, RegWrite, AUIPC, ALUSrc, MemWrite, ResultSrc, Branch, ALUOp, Jump, JumpReg} = 14'b011_1_0_1_0_00_0_10_0_0;
+                    end
                 end 
 
                 //──────────────────────────────────────\\
@@ -51,7 +56,7 @@
                 //─────────────── R Type ───────────────\\
                 //──────────────────────────────────────\\
                 // Integer Register - Register Instructions 
-                7'b011_0011: {ImmSel, RegWrite, AUIPC, ALUSrc, MemWrite, ResultSrc, Branch, ALUOp, Jump, JumpReg} = 14'b111_1_0_0_0_00_0_10_0_0;
+                7'b011_0011: {ImmSel, RegWrite, AUIPC, ALUSrc, MemWrite, ResultSrc, Branch, ALUOp, Jump, JumpReg} = 14'b000_1_0_0_0_00_0_10_0_0;
 
                 //──────────────────────────────────────\\
                 //───────────────        ───────────────\\
