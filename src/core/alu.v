@@ -10,7 +10,7 @@ module alu(
     always @(*) begin
         case (ALUControl)
             4'b0000: Result = A + B; // ADD
-            4'b0001: Result = A - B; // SUB
+            4'b0001: Result = A - B; // SUB 
             4'b0010: Result = A << B[4:0]; // SLL
             4'b0011: Result = ($signed(A) < $signed(B)) ? 32'b1 : 32'b0; // SLT
             4'b0100: Result = ($unsigned(A) < $unsigned(B)) ? 32'b1 : 32'b0; // SLTU

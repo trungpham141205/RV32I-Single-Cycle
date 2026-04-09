@@ -172,6 +172,7 @@ module riscv_top(
         .clk                (clk),
         .rst                (rst),
         .MemWrite           (MemWrite),
+        .funct3             (funct3),
         .address            (Result),
         .write_data         (read_data_2),
         .read_data          (mem_read_data)

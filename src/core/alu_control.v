@@ -8,11 +8,18 @@ module alu_control(
     always @(*) begin
         casez ({ALUOp, funct3, funct7})
             6'b00????: ALUControl = 4'b0000; // ADD (LW, SW, JALR, AUIPC)
-            6'b01????: ALUControl = 4'b0001;  // SUB (Branch)
+
+            // Branch Instructions
+            6'b01000?,
+            6'b01001?: ALUControl = 4'b0001;  // SUB (BEQ, BNE)
+            6'b01100?,
+            6'b01101?: ALUControl = 4'b0011; // BLT, BGE
+            6'b01110?,
+            6'b01111?: ALUControl = 4'b0100; // BLTU, BGEU
 
             //──────────────────────────────────────\\
             //─────────────── R Type ───────────────\\
-            //──────────────────────────────────────\\
+            //──────────────────────────────────────\\  
             6'b100000: ALUControl = 4'b0000; // ADD
             6'b100001: ALUControl = 4'b0001; // SUB
             6'b10001?: ALUControl = 4'b0010; // SLL
