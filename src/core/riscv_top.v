@@ -29,11 +29,12 @@ module riscv_top(
 
     //  ALU
     wire [3:0]  ALUControl;
-    wire [31:0] A, B, Result;
+    wire [31:0] A, B;
+    wire [31:0] result;
     wire        zero;
 
     //  Memory
-    wire [31:0] mem_read_data;
+    wire [31:0] read_data;
 
     //  Write Back
     wire [31:0] write_data; 
@@ -61,18 +62,21 @@ module riscv_top(
     );
 
     branch_unit dut_branch_unit(
-        .funct3             (funct3),
-        .zero               (zero),
-        .alu_result         (Result),
         .Branch             (Branch),
-        .branch_sel         (branch_sel)
+        .Jump               (Jump),
+        .JumpReg            (JumpReg),
+        .zero               (zero),
+        .alu_result         (result),
+        .pc_branch_jump     (pc_branch_jump),
+        .pc_inc             (pc_inc),
+        .pc_next            (pc_next)
     );
 
     branch_jump dut_branch_jump(
+        .Jump_Reg           (JumpReg),
         .pc                 (pc),
         .rs1                (read_data_1),
         .immediate          (immediate),
-        .jump_reg           (JumpReg),
         .pc_branch_jump     (pc_branch_jump)
     );
 
@@ -89,6 +93,7 @@ module riscv_top(
     //────────────────────────────────────────────\\
     control_unit dut_control_unit(
         .opcode             (opcode),
+        .funct3             (funct3),
         .RegWrite           (RegWrite),
         .ALUSrc             (ALUSrc),
         .AUIPC              (AUIPC),
@@ -105,7 +110,7 @@ module riscv_top(
     //─────────────── Immediate Generator ───────────────\\
     //───────────────────────────────────────────────────\\
     immediate_generate dut_immediate_generate(
-        .immsel             (ImmSel),
+        .ImmSel             (ImmSel),
         .instruction        (instruction),
         .immediate_extend   (immediate)
     );
@@ -159,7 +164,7 @@ module riscv_top(
         .A                  (A),
         .B                  (B),
         .ALUControl         (ALUControl),
-        .Result             (Result),
+        .result             (result),
         .zero               (zero)
     );
 
@@ -171,16 +176,21 @@ module riscv_top(
         .rst                (rst),
         .MemWrite           (MemWrite),
         .funct3             (funct3),
-        .address            (Result),
+        .address            (result),
         .write_data         (read_data_2),
-        .read_data          (mem_read_data)
+        .read_data          (read_data)
     );
 
     //────────────────────────────────────────────────────\\
     //───────────── Write Back (ResultSrc) ───────────────\\
     //────────────────────────────────────────────────────\\
-    assign      write_data = (ResultSrc == 2'b00) ? Result : // R-type, I-type ALU, AUIPC
-                             (ResultSrc == 2'b01) ? mem_read_data : // LW
-                             (ResultSrc == 2'b10) ? pc_inc : immediate;           
+    write_back dut_write_back(
+        .ResultSrc          (ResultSrc),
+        .alu_result         (result),
+        .read_data          (read_data),
+        .pc_inc             (pc_inc),
+        .immediate          (immediate),
+        .write_data         (write_data)   
+    );
 
 endmodule

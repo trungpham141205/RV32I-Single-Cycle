@@ -17,7 +17,29 @@ module data_memory(
             end
         end
         else if(MemWrite) begin
-            data_mem[address[7:2]] <= write_data;
+            case (funct3)
+                3'b000: begin
+                    case (address[1:0])
+                        2'b00: data_mem[address[7:0]] <= write_data[7:0];
+                        2'b01: data_mem[address[15:8]] <= write_data[7:0];
+                        2'b10: data_mem[address[23:16]] <= write_data[7:0];
+                        2'b11: data_mem[address[31:24]] <= write_data[7:0];
+                    endcase  
+                end
+
+                3'b001: begin
+                    case (address[1])
+                        1'b0: data_mem[address[15:0]] <= write_data[15:0];
+                        1'b1: data_mem[address[31:16]] <= write_data[15:0];
+                    endcase
+                end
+                
+                3'b010: begin
+                    data_mem[address[7:2]] <= write_data;
+                end
+
+                default: data_mem[address[7:2]] <= data_mem[address[7:2]]
+            endcase
         end
     end
 
