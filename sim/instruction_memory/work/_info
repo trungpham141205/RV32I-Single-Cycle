@@ -1,0 +1,79 @@
+m255
+K4
+z2
+Z0 !s12c _opt
+Z1 !s99 nomlopt
+R0
+R1
+R0
+R1
+!s11f vlog 2025.2 2025.05, May 31 2025
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z2 d/home/trungpham/RV32I-Single-Cycle/sim/instruction_memory
+T_opt
+!i145 1
+!i144 0
+Z3 !s110 1775988416
+VDLF4:9JBT@Xm3]?`>f0F02
+04 21 4 work tb_instruction_memory fast 0
+=1-14ac606edb59-69db6ec0-95a48-24e3
+R1
+!s12f OEM100
+!s12b OEM100
+!s124 OEM10U2 
+!s135 nogc
+o-quiet -auto_acc_if_foreign -work work +acc
+Z4 tCvgOpt 0
+n@_opt
+OL;O;2025.2;82
+vinstruction_memory
+2../../src/memory/instruction_memory.v
+R3
+!i10b 1
+!s100 L_C477Z]=gcZ5nXo^GF<g2
+I2@0c=cY3;l>]94a;m^PJ23
+R2
+w1775988318
+8../../src/memory/instruction_memory.v
+F../../src/memory/instruction_memory.v
+!i122 10
+L0 1 14
+Z5 VDg1SIo80bB@j0V0VzS_@n1
+Z6 OL;L;2025.2;82
+r1
+!s85 0
+31
+Z7 !s108 1775988416.000000
+!s107 ../../src/memory/instruction_memory.v|
+!s90 -reportprogress|300|../../src/memory/instruction_memory.v|
+!i113 0
+Z8 o-L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R4
+vtb_instruction_memory
+2../../tb/instruction_memory/tb_instruction_memory.v
+R3
+!i10b 1
+!s100 jR;d9YQgZ;V6z<d@RaIP10
+ICKH1[N]dIj<FSDa9KPagb2
+R2
+w1775988103
+8../../tb/instruction_memory/tb_instruction_memory.v
+F../../tb/instruction_memory/tb_instruction_memory.v
+!i122 11
+L0 2 119
+R5
+R6
+r1
+!s85 0
+31
+R7
+!s107 ../../tb/instruction_memory/tb_instruction_memory.v|
+!s90 -reportprogress|300|../../tb/instruction_memory/tb_instruction_memory.v|
+!i113 0
+R8
+R4

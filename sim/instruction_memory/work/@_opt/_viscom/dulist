@@ -1,0 +1,2 @@
+1 18 instruction_memory 4 fast 62 /home/trungpham/RV32I-Single-Cycle/sim/instruction_memory/work 0 0 0 0 15 0
+2 21 tb_instruction_memory 4 fast 62 /home/trungpham/RV32I-Single-Cycle/sim/instruction_memory/work 0 0 180224 0 148 0

@@ -6,7 +6,7 @@ module instruction_memory(
     reg [31:0] memory [0:63];
 
     initial begin
-     	$readmemh("src/memory/program.hex", memory);
+     	$readmemh("program.hex", memory);
     end
 
     assign instruction = memory[read_address[7:2]];
